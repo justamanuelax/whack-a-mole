@@ -1,17 +1,9 @@
-import React, { createContext, useReducer } from 'react';
-
+import React, {  useReducer } from 'react';
+import { initialState } from './GameLogic';
 // Define game state initial values
-const initialState = {
-    score: 0,
-    status: 'waiting', // 'waiting', 'playing', 'paused', 'ended'
-    timer: 0,
-    difficulty: 'easy', // 'easy', 'medium', 'hard'
-    gameDuration: 60, // default game duration in seconds
-    highScores: []
-};
+
 
 // Create a context to store game state
-export const GameContext = createContext(initialState);
 
 // Reducer to handle state transitions based on actions
 function gameReducer(state, action) {
