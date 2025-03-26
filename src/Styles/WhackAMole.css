@@ -24,3 +24,15 @@ body {
 body:active {
   cursor: url('/src/assets/hammer-hit.png'), auto;
 }
+
+/* Media query for smaller screens */
+@media (max-width: 480px) {
+  .whack-a-mole-game {
+    padding: 10px;
+  }
+
+  h1 {
+    font-size: 2em;
+    margin-bottom: 10px;
+  }
+}

@@ -32,7 +32,7 @@ const Mole = ({ isActive, onWhack, moleIndex }) => {
   };
 
   return (
-    <div className="mole-container" onClick={handleClick}>
+    <div className="mole-container" onClick={handleClick} onTouchStart={handleClick}>
       <div className={`mole ${status}`}>
         <div className="mole-face"></div>
         <div className="mole-body"></div>
