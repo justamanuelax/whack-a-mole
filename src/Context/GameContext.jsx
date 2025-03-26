@@ -6,7 +6,8 @@ const initialState = {
     status: 'waiting', // 'waiting', 'playing', 'paused', 'ended'
     timer: 0,
     difficulty: 'easy', // 'easy', 'medium', 'hard'
-    gameDuration: 60 // default game duration in seconds
+    gameDuration: 60, // default game duration in seconds
+    highScores: []
 };
 
 // Create a context to store game state
@@ -36,6 +37,8 @@ function gameReducer(state, action) {
             return { ...state, timer: action.payload };
         case 'SET_GAME_DURATION':
             return { ...state, gameDuration: action.payload };
+        case 'SET_HIGH_SCORES':
+            return { ...state, highScores: action.payload };
         case 'RESET_GAME':
             return initialState;
         default:

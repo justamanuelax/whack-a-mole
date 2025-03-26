@@ -1,0 +1,40 @@
+.game-result {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #4e6c50;
+    color: white;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.game-result h2 {
+    margin-top: 0;
+}
+
+.result-message {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.final-score {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.new-high-score {
+    font-size: 20px;
+    font-weight: bold;
+    color: gold;
+    margin-top: 10px;
+}
+
+.high-scores-list {
+    list-style-type: decimal;
+    padding-left: 20px;
+    text-align: left;
+}
+
+.high-scores-list li {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
