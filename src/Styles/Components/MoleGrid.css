@@ -1,0 +1,21 @@
+.mole-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 10px;
+  max-width: 400px;
+  margin: 0 auto;
+  background-color: #8bc34a;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Make grid responsive */
+@media (max-width: 480px) {
+  .mole-grid {
+    max-width: 320px;
+    gap: 5px;
+    padding: 10px;
+  }
+}

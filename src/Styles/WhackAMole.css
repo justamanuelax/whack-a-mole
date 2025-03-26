@@ -1,0 +1,21 @@
+.whack-a-mole-game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+  background-color: #e9f5db;
+  min-height: 100vh;
+}
+
+h1 {
+  color: #4e6c50;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  margin-bottom: 20px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #e9f5db;
+}

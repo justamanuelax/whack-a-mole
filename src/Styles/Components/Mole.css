@@ -1,0 +1,90 @@
+.mole-container {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.mole-hole {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 40%;
+  background-color: #5e3a1e;
+  border-radius: 50% 50% 0 0;
+  z-index: 1;
+}
+
+.mole {
+  position: absolute;
+  bottom: 0;
+  width: 80%;
+  height: 80%;
+  left: 10%;
+  transition: transform 0.2s ease-in-out;
+  z-index: 2;
+}
+
+/* Mole body and face styling */
+.mole-body {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 70%;
+  background-color: #8c5e3b;
+  border-radius: 50% 50% 40% 40%;
+}
+
+.mole-face {
+  position: absolute;
+  width: 100%;
+  height: 45%;
+  top: 0;
+  background-color: #bd8e62;
+  border-radius: 50% 50% 0 0;
+  overflow: hidden;
+}
+
+.mole-face::before, .mole-face::after {
+  content: '';
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background-color: #000;
+  border-radius: 50%;
+  top: 15px;
+}
+
+.mole-face::before {
+  left: 20px;
+}
+
+.mole-face::after {
+  right: 20px;
+}
+
+/* Animation states */
+.mole.hidden {
+  transform: translateY(100%);
+}
+
+.mole.visible {
+  transform: translateY(0);
+}
+
+.mole.whacked {
+  transform: translateY(30%);
+}
+
+.mole.whacked .mole-face::before, 
+.mole.whacked .mole-face::after {
+  height: 2px;
+  border-radius: 0;
+  top: 25px;
+}
+
+/* Add some hover effect for better user experience */
+.mole.visible:hover {
+  transform: translateY(-5%);
+}

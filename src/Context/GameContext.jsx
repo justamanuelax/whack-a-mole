@@ -1,7 +1,5 @@
 import React, { createContext, useReducer } from 'react';
 
-// ...existing code...
-
 // Define game state initial values
 const initialState = {
     score: 0,
@@ -28,6 +26,8 @@ function gameReducer(state, action) {
             return { ...state, timer: state.timer - 1 };
         case 'SET_DIFFICULTY':
             return { ...state, difficulty: action.payload };
+        case 'SET_TIMER':
+            return { ...state, timer: action.payload };
         default:
             return state;
     }
@@ -37,7 +37,6 @@ function gameReducer(state, action) {
 export const GameProvider = ({ children }) => {
     const [state, dispatch] = useReducer(gameReducer, initialState);
 
-    // ...existing code...
     return (
         <GameContext.Provider value={{ state, dispatch }}>
             {children}
