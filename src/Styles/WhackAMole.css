@@ -18,4 +18,9 @@ body {
   margin: 0;
   padding: 0;
   background-color: #e9f5db;
+  cursor: url('/src/assets/hammer.png'), auto;
+}
+
+body:active {
+  cursor: url('/src/assets/hammer-hit.png'), auto;
 }

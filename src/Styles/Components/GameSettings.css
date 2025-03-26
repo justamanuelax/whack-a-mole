@@ -1,0 +1,41 @@
+.game-settings {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #e9f5db;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.game-settings h3 {
+  margin-top: 0;
+  color: #4e6c50;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.setting-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.setting-item label {
+  font-size: 16px;
+  color: #333;
+}
+
+.setting-item select {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+  width: 120px;
+}
+
+.setting-item select:disabled {
+  background-color: #eee;
+  cursor: not-allowed;
+}

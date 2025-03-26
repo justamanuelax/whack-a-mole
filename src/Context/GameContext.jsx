@@ -3,9 +3,10 @@ import React, { createContext, useReducer } from 'react';
 // Define game state initial values
 const initialState = {
     score: 0,
-    status: 'paused', // could be 'playing', 'paused', 'ended'
+    status: 'waiting', // 'waiting', 'playing', 'paused', 'ended'
     timer: 0,
-    difficulty: 'easy' // could be 'easy', 'medium', 'hard'
+    difficulty: 'easy', // 'easy', 'medium', 'hard'
+    gameDuration: 60 // default game duration in seconds
 };
 
 // Create a context to store game state
@@ -15,7 +16,12 @@ export const GameContext = createContext(initialState);
 function gameReducer(state, action) {
     switch (action.type) {
         case 'START_GAME':
-            return { ...state, status: 'playing', timer: 0, score: 0 };
+            return { 
+                ...state, 
+                status: 'playing', 
+                timer: state.timer > 0 ? state.timer : state.gameDuration, 
+                score: 0 
+            };
         case 'PAUSE_GAME':
             return { ...state, status: 'paused' };
         case 'END_GAME':
@@ -28,6 +34,10 @@ function gameReducer(state, action) {
             return { ...state, difficulty: action.payload };
         case 'SET_TIMER':
             return { ...state, timer: action.payload };
+        case 'SET_GAME_DURATION':
+            return { ...state, gameDuration: action.payload };
+        case 'RESET_GAME':
+            return initialState;
         default:
             return state;
     }

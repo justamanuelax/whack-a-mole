@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import '../Styles/Components/Mole.css';
 
 const Mole = ({ isActive, onWhack, moleIndex }) => {
   const [status, setStatus] = useState('hidden'); // hidden, visible, whacked
+  const whackSoundRef = useRef(null);
 
   useEffect(() => {
     if (isActive) {
@@ -16,6 +17,10 @@ const Mole = ({ isActive, onWhack, moleIndex }) => {
     if (status === 'visible') {
       setStatus('whacked');
       onWhack(moleIndex);
+
+      if (whackSoundRef.current) {
+          whackSoundRef.current.play();
+      }
       
       // Reset to hidden after a brief period to show the whacked state
       setTimeout(() => {
@@ -32,7 +37,9 @@ const Mole = ({ isActive, onWhack, moleIndex }) => {
         <div className="mole-face"></div>
         <div className="mole-body"></div>
       </div>
-      <div className="mole-hole"></div>
+      <div className="mole-hole">
+        <audio ref={whackSoundRef} src="/src/assets/whack.wav" preload="auto"></audio>
+      </div>
     </div>
   );
 };

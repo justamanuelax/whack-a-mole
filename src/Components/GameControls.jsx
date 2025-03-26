@@ -7,6 +7,9 @@ const GameControls = () => {
   const { status, difficulty } = state;
   
   const handleStartGame = () => {
+    if (status === 'ended') {
+      dispatch({ type: 'RESET_GAME' });
+    }
     dispatch({ type: 'START_GAME' });
   };
   
