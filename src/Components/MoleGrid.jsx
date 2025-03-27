@@ -13,6 +13,8 @@ const MoleGrid = () => {
   const { backgroundMusicRef } = MusicBackground();  
   // Track which moles are currently active - updated from 6 to 9 moles (three rows of 3)
   const [activeMoles, setActiveMoles] = useState(Array(9).fill(false));
+  const [isNewHighScore, setIsNewHighScore] = useState(false);
+  const [scoreProcessed, setScoreProcessed] = useState(false);
   
   // Game configuration based on difficulty
   const difficultySettings = useMemo(() => ({
@@ -53,10 +55,9 @@ const MoleGrid = () => {
   
   const moleAppearanceInterval = useRef(null);
   const timerInterval = useRef(null);
-  // Update paths to ensure they're correct
   const gameEndSoundRef = useRef(new Audio('/assets/sounds/game-over.mp3'));
-  const [isNewHighScore, setIsNewHighScore] = useState(false);
 
+  // Load high scores from localStorage on component mount
   const loadHighScores = useCallback(() => {
     const storedHighScores = localStorage.getItem('highScores');
     if (storedHighScores) {
@@ -81,26 +82,55 @@ const MoleGrid = () => {
     }
   }, [status, backgroundMusicRef]);
 
+  // Reset scoreProcessed flag when starting a new game
   useEffect(() => {
-    if (status === 'ended') {
+    if (status === 'playing') {
+      setScoreProcessed(false);
+    }
+  }, [status]);
+
+  // Process high score when game ends
+  useEffect(() => {
+    if (status === 'ended' && !scoreProcessed && score > 0) {
+      // Get existing high scores from localStorage
+      let highScores = [];
+      const storedHighScores = localStorage.getItem('highScores');
+      
+      if (storedHighScores) {
+        highScores = JSON.parse(storedHighScores);
+      }
+      
       // Check if current score is a new high score
-      const currentHighScores = [...state.highScores];
-      const isHighScore = currentHighScores.length < 5 || score > currentHighScores[4]?.score || 0;
-       
+      const isHighScore = highScores.length < 5 || score > Math.min(...highScores.map(s => s.score));
+      
       if (isHighScore) {
         setIsNewHighScore(true);
-        const newScore = { score: score };
-        currentHighScores.push(newScore);
-        currentHighScores.sort((a, b) => b.score - a.score);
-        const topFiveScores = currentHighScores.slice(0, 5);
-
+        // Create a timestamp for the score for sorting ties
+        const newScore = { 
+          score: score,
+          timestamp: Date.now()
+        };
+        
+        highScores.push(newScore);
+        // Sort by score (descending) and then by timestamp (ascending) for ties
+        highScores.sort((a, b) => b.score === a.score ? 
+                                  (a.timestamp || 0) - (b.timestamp || 0) : 
+                                  b.score - a.score);
+                                  
+        // Keep only the top 5 scores
+        const topFiveScores = highScores.slice(0, 5);
+        
+        // Update state and localStorage
         dispatch({ type: 'SET_HIGH_SCORES', payload: topFiveScores });
         localStorage.setItem('highScores', JSON.stringify(topFiveScores));
       } else {
         setIsNewHighScore(false);
       }
+      
+      // Mark score as processed to prevent duplicate processing
+      setScoreProcessed(true);
     }
-  }, [status, score, state.highScores, dispatch]);
+  }, [status, score, dispatch, scoreProcessed]);
 
   // Start game with a time limit
   useEffect(() => {
