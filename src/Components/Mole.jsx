@@ -38,7 +38,7 @@ const Mole = ({ isActive, onWhack, moleIndex }) => {
         <div className="mole-body"></div>
       </div>
       <div className="mole-hole">
-        <audio ref={whackSoundRef} src="/src/assets/whack.wav" preload="auto"></audio>
+        <audio ref={whackSoundRef} src="/assets/sounds/whack.mp3" preload="auto"></audio>
       </div>
     </div>
   );

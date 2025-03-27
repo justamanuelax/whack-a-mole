@@ -4,7 +4,7 @@ import './Styles/WhackAMole.css';
 import { useEffect, useState, useCallback, useRef } from 'react';
 
 function App() {
-  const backgroundMusicRef = useRef(new Audio('./assets/sounds/music.mp3'));
+  const backgroundMusicRef = useRef(new Audio('/assets/sounds/music.mp3'));
   const [hasInteracted, setHasInteracted] = useState(false);
 
   const playMusic = useCallback(() => {

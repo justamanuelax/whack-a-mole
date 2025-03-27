@@ -187,8 +187,8 @@ const MoleGrid = () => {
       
       {renderGameResult()}
       <GameControls />
-      <audio ref={gameStartSoundRef} src="/assets/start.wav" preload="auto"></audio>
-      <audio ref={gameEndSoundRef} src="/assets/end.wav" preload="auto"></audio>
+      <audio ref={gameStartSoundRef} src="./assets/sounds/music.mp3" preload="auto"></audio>
+      <audio ref={gameEndSoundRef} src="./assets/sounds/game-over.m4a" preload="auto"></audio>
     </div>
   );
 };
