@@ -57,7 +57,7 @@ function App() {
       <div className="whack-a-mole-game">
         <h1>Whack-a-Mole</h1>
         <div onClick={handleUserInteraction}>
-        <h1>Click anywhere to start the music</h1>
+        <h1>Click here to start the music</h1>
         </div>
         <MoleGrid />
       </div>
