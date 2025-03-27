@@ -6,11 +6,12 @@ import { GameContext } from './GameContextDefinition';
 function gameReducer(state, action) {
     switch (action.type) {
         case 'START_GAME':
+            // Only reset score if not resuming from pause
             return { 
                 ...state, 
                 status: 'playing', 
                 timer: state.timer > 0 ? state.timer : state.gameDuration, 
-                score: 0
+                score: state.status === 'paused' ? state.score : 0
             };
         case 'PAUSE_GAME':
             return { ...state, status: 'paused' };
