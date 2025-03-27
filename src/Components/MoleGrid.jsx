@@ -11,7 +11,7 @@ const MoleGrid = () => {
   const { state, dispatch } = useContext(GameContext);
   const { status, difficulty, timer, score } = state;
   const { backgroundMusicRef } = MusicBackground();  
-  // Track which moles are currently active
+  // Track which moles are currently active - updated from 6 to 9 moles (three rows of 3)
   const [activeMoles, setActiveMoles] = useState(Array(9).fill(false));
   
   // Game configuration based on difficulty
@@ -79,7 +79,7 @@ const MoleGrid = () => {
       backgroundMusicRef.current.pause();
       console.log("Music paused because game ended or paused");
     }
-  }, [status]);
+  }, [status, backgroundMusicRef]);
 
   useEffect(() => {
     if (status === 'ended') {
@@ -139,7 +139,7 @@ const MoleGrid = () => {
   // Control mole appearances
   useEffect(() => {
     if (status !== 'playing') {
-      setActiveMoles(Array(9).fill(false));
+      setActiveMoles(Array(9).fill(false)); // Updated from 6 to 9
       clearInterval(moleAppearanceInterval.current);
       return;
     }
@@ -196,14 +196,41 @@ const MoleGrid = () => {
       <GameStats score={score} timer={timer}/>
       
       <div className="mole-grid">
-        {Array(9).fill().map((_, index) => (
-          <Mole 
-            key={index}
-            moleIndex={index}
-            isActive={activeMoles[index]}
-            onWhack={handleWhack}
-          />
-        ))}
+        {/* Top row (new) */}
+        <div className="moles-row-top">
+          {Array(3).fill().map((_, index) => (
+            <Mole 
+              key={index}
+              moleIndex={index}
+              isActive={activeMoles[index]}
+              onWhack={handleWhack}
+            />
+          ))}
+        </div>
+        
+        {/* Middle row (was top row) */}
+        <div className="moles-row-middle">
+          {Array(3).fill().map((_, index) => (
+            <Mole 
+              key={index + 3}
+              moleIndex={index + 3}
+              isActive={activeMoles[index + 3]}
+              onWhack={handleWhack}
+            />
+          ))}
+        </div>
+        
+        {/* Bottom row */}
+        <div className="moles-row">
+          {Array(3).fill().map((_, index) => (
+            <Mole 
+              key={index + 6}
+              moleIndex={index + 6}
+              isActive={activeMoles[index + 6]}
+              onWhack={handleWhack}
+            />
+          ))}
+        </div>
       </div>
       
       {renderGameResult()}

@@ -11,8 +11,10 @@
   bottom: 0;
   width: 100%;
   height: 40%;
-  background-color: #5e3a1e;
-  border-radius: 50% 50% 0 0;
+  background-image: url('/assets/images/hole.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: bottom;
   z-index: 1;
 }
 
@@ -24,49 +26,16 @@
   left: 10%;
   transition: transform 0.2s ease-in-out;
   z-index: 2;
-}
-
-/* Mole body and face styling */
-.mole-body {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 70%;
-  background-color: #8c5e3b;
-  border-radius: 50% 50% 40% 40%;
-}
-
-.mole-face {
-  position: absolute;
-  width: 100%;
-  height: 45%;
-  top: 0;
-  background-color: #bd8e62;
-  border-radius: 50% 50% 0 0;
-  overflow: hidden;
-}
-
-.mole-face::before, .mole-face::after {
-  content: '';
-  position: absolute;
-  width: 15px;
-  height: 15px;
-  background-color: #000;
-  border-radius: 50%;
-  top: 15px;
-}
-
-.mole-face::before {
-  left: 20px;
-}
-
-.mole-face::after {
-  right: 20px;
+  background-image: url('/assets/images/mole.png');
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  background-position: bottom;
 }
 
 /* Animation states */
 .mole.hidden {
   transform: translateY(100%);
+
 }
 
 .mole.visible {
@@ -75,13 +44,8 @@
 
 .mole.whacked {
   transform: translateY(30%);
-}
-
-.mole.whacked .mole-face::before, 
-.mole.whacked .mole-face::after {
-  height: 2px;
-  border-radius: 0;
-  top: 25px;
+  background-image: url('/assets/images/mole-whacked.png');
+  
 }
 
 /* Add some hover effect for better user experience */
@@ -95,13 +59,5 @@
     width: 80px;
     height: 80px;
     margin: 5px;
-  }
-
-  .mole-face::before {
-    left: 10px;
-  }
-
-  .mole-face::after {
-    right: 10px;
   }
 }

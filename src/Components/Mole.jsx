@@ -9,7 +9,7 @@ const Mole = ({ isActive, onWhack, moleIndex }) => {
   const { state } = useContext(GameContext);
 
   useEffect(() => {
-    if (isActive) {
+    if (isActive && status !== 'whacked') {
       setStatus('visible');
       
       // Play mole cry sound when mole appears
@@ -35,10 +35,10 @@ const Mole = ({ isActive, onWhack, moleIndex }) => {
           console.error("Error playing mole cry sound:", error);
         });
       }
-    } else {
+    } else if (!isActive && status !== 'whacked') {
       setStatus('hidden');
     }
-  }, [isActive, state.difficulty]);
+  }, [isActive, state.difficulty, status]);
 
   const handleClick = () => {
     if (status === 'visible') {
@@ -49,21 +49,20 @@ const Mole = ({ isActive, onWhack, moleIndex }) => {
           whackSoundRef.current.play();
       }
       
-      // Reset to hidden after a brief period to show the whacked state
+      // Show whacked mole for 4 seconds
       setTimeout(() => {
-        if (!isActive) {
+        if (isActive) {
+          setStatus('visible');
+        } else {
           setStatus('hidden');
         }
-      }, 300);
+      }, 3000);
     }
   };
 
   return (
     <div className="mole-container" onClick={handleClick} onTouchStart={handleClick}>
-      <div className={`mole ${status}`}>
-        <div className="mole-face"></div>
-        <div className="mole-body"></div>
-      </div>
+      <div className={`mole ${status}`}></div>
       <div className="mole-hole">
         <audio ref={whackSoundRef} src="/assets/sounds/whack.mp3" preload="auto"></audio>
         <audio ref={moleCrySoundRef} src="/assets/sounds/molecry.mp3" preload="auto"></audio>

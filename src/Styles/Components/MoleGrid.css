@@ -1,14 +1,71 @@
 .mole-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  gap: 10px;
+  grid-template-rows: 1fr; /* We'll keep this as 1fr since we'll use flex to stack rows */
+  gap: 5px;
   max-width: 400px;
   margin: 0 auto;
-  background-color: #8bc34a;
+  position: relative;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  height: 700px; /* Increased height to accommodate three rows */
+  margin-top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* Push content to the bottom */
+}
+
+.mole-grid::before {
+  content: "";
+  position: absolute;
+  top: -5px; /* Adjusted to align with the top of the container */
+  left: 0;
+  width: 100%;
+  height: 100%; /* Full height of the container */
+  background-image: url('/assets/images/background.png');
+  background-size: cover; /* Changed to cover to ensure full background coverage */
+  background-repeat: no-repeat;
+  background-position: center bottom; /* Ensuring the background is positioned from the top */
+  border-radius: 10px;
+  z-index: -1; /* Ensure background stays behind the moles */
+}
+
+/* Bottom row of moles container */
+.moles-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+  width: 100%;
+  padding-bottom: 20px; /* Add some space at the bottom */
+  margin-bottom: 10px; /* Space between rows */
+}
+
+/* Top row of moles container (new) */
+.moles-row-top {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+  width: 100%;
+  margin-bottom: 30px; /* Space between rows */
+}
+
+/* Middle row of moles container */
+.moles-row-middle {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+  width: 100%;
+  margin-bottom: 30px; /* More space between top and bottom rows */
+}
+
+/* Increase z-index for mole elements to make them stand out */
+.mole-container {
+  position: relative;
+  z-index: 2;
+  transform: translateZ(0); /* Force hardware acceleration */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 /* Make grid responsive */
@@ -17,5 +74,17 @@
     max-width: 320px;
     gap: 5px;
     padding: 10px;
+    height: 480px; /* Increased height for mobile with three rows */
+    margin-top: 0; /* Removed top margin */
+  }
+  
+  .mole-grid::before {
+    top: 0; /* Adjusted for correct alignment */
+    height: 100%; /* Full height */
+  }
+  
+  .moles-row, .moles-row-middle, .moles-row-top {
+    padding-bottom: 5px; /* Less padding for mobile */
+    margin-bottom: 5px; /* Less margin for mobile */
   }
 }
