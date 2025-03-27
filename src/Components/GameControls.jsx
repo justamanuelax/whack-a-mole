@@ -30,7 +30,7 @@ const GameControls = () => {
       <div className="buttons">
         <button 
           onClick={handleStartGame}
-          disabled={status === 'playing'}
+          disabled={status === 'playing' || status === 'paused'}
         >
           {status === 'ended' ? 'Play Again' : 'Start Game'}
         </button>
