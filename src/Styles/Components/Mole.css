@@ -3,7 +3,7 @@
   width: 100px;
   height: 100px;
   margin: 10px;
-  cursor: pointer;
+  cursor: none;
 }
 
 .mole-hole {
@@ -16,6 +16,7 @@
   background-repeat: no-repeat;
   background-position: bottom;
   z-index: 1;
+  cursor: none;
 }
 
 .mole {
@@ -30,6 +31,7 @@
   background-size: 100% auto;
   background-repeat: no-repeat;
   background-position: bottom;
+  cursor: none;
 }
 
 /* Animation states */

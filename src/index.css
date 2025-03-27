@@ -1,0 +1,25 @@
+/* Add styles for the custom cursor when hovering over the background.png */
+body {
+    cursor: none; /* Hide the default cursor */
+}
+
+.cursor {
+    position: absolute;      /* Positions the element anywhere on the page */
+    pointer-events: none;    /* Ensures the custom cursor doesn't block interactions */
+    z-index: 9999;           /* Keeps it on top of other page elements */
+    width: 50px;             /* Adjust width as needed for your SVG */
+    height: 50px;            /* Adjust height as needed for your SVG */
+    /* Optionally, add a transition for smoother movement */
+    transition: transform 0.05s ease-out;
+    display: none; /* Hide the custom cursor by default */
+}
+
+/* Show the custom cursor when hovering over the background image */
+body:hover .cursor {
+    display: block;
+}
+
+/* Center the stormbreaker.svg in the middle of the cursor */
+.cursor {
+    transform: translate(-50%, -50%); /* Adjust position to center the cursor */
+}
