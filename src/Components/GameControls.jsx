@@ -1,5 +1,5 @@
-import { useContext } from 'react';
-import { GameContext } from '../Context/GameContext';
+import React, { useContext } from 'react';
+import { GameContext } from '../Hooks/GameLogic';
 import '../Styles/Components/GameControls.css';
 
 const GameControls = () => {

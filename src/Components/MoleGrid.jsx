@@ -1,11 +1,10 @@
-import { useState, useEffect, useContext, useCallback, useRef } from 'react';
-import Mole from './Components/Mole.jsx';
-import GameStats from './GameStats';
-import GameControls from './GameControls';
-import GameSettings from './Components/GameSettings.jsx';
-import { GameContext } from '../Context/GameContext';
+import { useState, useEffect, useContext, useCallback, useRef, useMemo } from 'react';
+import Mole from './Mole';
+import GameStats from './GameStats.jsx';
+import GameControls from './GameControls.jsx';
+import { GameContext } from '../Hooks/GameLogic.jsx';
 import '../Styles/Components/MoleGrid.css';
-import GameResult from './GameResult';
+import GameResult from './GameResult.jsx';
 
 const MoleGrid = () => {
   const { state, dispatch } = useContext(GameContext);
@@ -34,7 +33,7 @@ const MoleGrid = () => {
   };
 
   // Get current settings based on difficulty
-  const currentSettings = difficultySettings[difficulty];
+  const currentSettings = useMemo(() => difficultySettings[difficulty], [difficulty]);
   
   // Function to handle whacking a mole
   const handleWhack = useCallback((index) => {
@@ -188,9 +187,8 @@ const MoleGrid = () => {
       
       {renderGameResult()}
       <GameControls />
-      <GameSettings />
-      <audio ref={gameStartSoundRef} src="/src/assets/start.wav" preload="auto"></audio>
-      <audio ref={gameEndSoundRef} src="/src/assets/end.wav" preload="auto"></audio>
+      <audio ref={gameStartSoundRef} src="/assets/start.wav" preload="auto"></audio>
+      <audio ref={gameEndSoundRef} src="/assets/end.wav" preload="auto"></audio>
     </div>
   );
 };

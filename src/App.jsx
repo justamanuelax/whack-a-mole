@@ -1,5 +1,5 @@
 import { GameProvider } from './Context/GameContext';
-import MoleGrid from './Components/MoleGrid';
+import MoleGrid from './components/MoleGrid';
 import './Styles/WhackAMole.css';
 import { useEffect, useRef } from 'react';
 

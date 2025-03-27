@@ -5,6 +5,7 @@
     color: white;
     border-radius: 8px;
     text-align: center;
+    animation: fadeIn 1s ease-in-out;
 }
 
 .game-result h2 {
@@ -37,4 +38,9 @@
 .high-scores-list li {
     font-size: 16px;
     margin-bottom: 5px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }

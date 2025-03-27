@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import '../Styles/Components/Mole.css';
+import '../Styles/components/Mole.css';
 
 const Mole = ({ isActive, onWhack, moleIndex }) => {
   const [status, setStatus] = useState('hidden'); // hidden, visible, whacked

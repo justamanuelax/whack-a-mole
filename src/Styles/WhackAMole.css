@@ -6,12 +6,20 @@
   font-family: 'Arial', sans-serif;
   background-color: #e9f5db;
   min-height: 100vh;
+  /* new subtle shadow for polish */
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+  transition: background-color 0.5s ease, box-shadow 0.5s ease;
 }
 
 h1 {
   color: #4e6c50;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   margin-bottom: 20px;
+  transition: transform 0.3s ease;
+}
+
+h1:hover {
+  transform: scale(1.05);
 }
 
 body {

@@ -1,5 +1,5 @@
 import React, {  useReducer } from 'react';
-import { initialState } from './GameLogic';
+import { GameContext, initialState } from '../Hooks/GameLogic';
 // Define game state initial values
 
 
