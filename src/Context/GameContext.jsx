@@ -1,9 +1,6 @@
-import React, {  useReducer } from 'react';
-import { GameContext, initialState } from '../Hooks/GameLogic';
-// Define game state initial values
-
-
-// Create a context to store game state
+import React, { useReducer } from 'react';
+import { initialState } from './GameConstants';
+import { GameContext } from './GameContextDefinition';
 
 // Reducer to handle state transitions based on actions
 function gameReducer(state, action) {
@@ -13,7 +10,7 @@ function gameReducer(state, action) {
                 ...state, 
                 status: 'playing', 
                 timer: state.timer > 0 ? state.timer : state.gameDuration, 
-                score: 0 
+                score: 0
             };
         case 'PAUSE_GAME':
             return { ...state, status: 'paused' };

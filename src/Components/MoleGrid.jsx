@@ -2,19 +2,20 @@ import { useState, useEffect, useContext, useCallback, useRef, useMemo } from 'r
 import Mole from './Mole';
 import GameStats from './GameStats.jsx';
 import GameControls from './GameControls.jsx';
-import { GameContext } from '../Hooks/GameLogic.jsx';
+import { GameContext } from '../Context/GameContextDefinition';
 import '../Styles/Components/MoleGrid.css';
 import GameResult from './GameResult.jsx';
+import MusicBackground from '../Hooks/GameLogic.jsx';
 
 const MoleGrid = () => {
   const { state, dispatch } = useContext(GameContext);
   const { status, difficulty, timer, score } = state;
-  
+  const { backgroundMusicRef } = MusicBackground();  
   // Track which moles are currently active
   const [activeMoles, setActiveMoles] = useState(Array(9).fill(false));
   
   // Game configuration based on difficulty
-  const difficultySettings = {
+  const difficultySettings = useMemo(() => ({
     easy: { 
       moleShowTime: 1500, // ms
       moleAppearanceRate: 2000, // ms
@@ -30,10 +31,10 @@ const MoleGrid = () => {
       moleAppearanceRate: 1000,
       maxActiveMoles: 4
     }
-  };
+  }), []);
 
   // Get current settings based on difficulty
-  const currentSettings = useMemo(() => difficultySettings[difficulty], [difficulty]);
+  const currentSettings = useMemo(() => difficultySettings[difficulty], [difficulty, difficultySettings]);
   
   // Function to handle whacking a mole
   const handleWhack = useCallback((index) => {
@@ -52,8 +53,8 @@ const MoleGrid = () => {
   
   const moleAppearanceInterval = useRef(null);
   const timerInterval = useRef(null);
-  const gameStartSoundRef = useRef(null);
-  const gameEndSoundRef = useRef(null);
+  // Update paths to ensure they're correct
+  const gameEndSoundRef = useRef(new Audio('/assets/sounds/game-over.mp3'));
   const [isNewHighScore, setIsNewHighScore] = useState(false);
 
   const loadHighScores = useCallback(() => {
@@ -67,12 +68,25 @@ const MoleGrid = () => {
     loadHighScores();
   }, [loadHighScores]);
 
+  // Handle music playback based on game status
+  useEffect(() => {
+    if (status === 'playing' && backgroundMusicRef.current) {
+      backgroundMusicRef.current.play().catch(error => {
+        console.error("Error playing background music:", error);
+      });
+      console.log("Music playing because game started");
+    } else if ((status === 'paused' || status === 'ended') && backgroundMusicRef.current) {
+      backgroundMusicRef.current.pause();
+      console.log("Music paused because game ended or paused");
+    }
+  }, [status]);
+
   useEffect(() => {
     if (status === 'ended') {
       // Check if current score is a new high score
       const currentHighScores = [...state.highScores];
       const isHighScore = currentHighScores.length < 5 || score > currentHighScores[4]?.score || 0;
-
+       
       if (isHighScore) {
         setIsNewHighScore(true);
         const newScore = { score: score };
@@ -91,29 +105,36 @@ const MoleGrid = () => {
   // Start game with a time limit
   useEffect(() => {
     if (status === 'playing' && timer === 0) {
+      // Initialize timer when game starts
       dispatch({ type: 'SET_TIMER', payload: state.gameDuration });
     }
     
     if (status === 'playing' && timer > 0) {
       timerInterval.current = setInterval(() => {
         dispatch({ type: 'DECREMENT_TIMER' });
-        if (timer === 1) {
-          dispatch({ type: 'END_GAME' });
-          if (gameEndSoundRef.current) {
-            gameEndSoundRef.current.play();
-          }
-        }
       }, 1000);
-
-      if (gameStartSoundRef.current) {
-        gameStartSoundRef.current.play();
-      }
-    } else {
+    } else if (status === 'paused') {
+      clearInterval(timerInterval.current);
+    } else if (status !== 'playing') {
       clearInterval(timerInterval.current);
     }
     
     return () => clearInterval(timerInterval.current);
   }, [status, timer, dispatch, state.gameDuration]);
+  
+  // Check for timer reaching zero
+  useEffect(() => {
+    if (status === 'playing' && timer === 0) {
+      // End game when timer hits 0
+      dispatch({ type: 'END_GAME' });
+      
+      // Play game over sound
+      gameEndSoundRef.current.play().catch(error => {
+        console.error("Error playing game-over sound:", error);
+      });
+      console.log("Game over sound played");
+    }
+  }, [timer, status, dispatch]);
   
   // Control mole appearances
   useEffect(() => {
@@ -187,8 +208,6 @@ const MoleGrid = () => {
       
       {renderGameResult()}
       <GameControls />
-      <audio ref={gameStartSoundRef} src="./assets/sounds/music.mp3" preload="auto"></audio>
-      <audio ref={gameEndSoundRef} src="./assets/sounds/game-over.m4a" preload="auto"></audio>
     </div>
   );
 };

@@ -1,11 +1,22 @@
-import { createContext } from "react";
+import { useRef, useEffect } from "react";
 
-export const initialState = {
-    score: 0,
-    status: 'waiting', // 'waiting', 'playing', 'paused', 'ended'
-    timer: 0,
-    difficulty: 'easy', // 'easy', 'medium', 'hard'
-    gameDuration: 60, // default game duration in seconds
-    highScores: []
-};
-export const GameContext = createContext(initialState);
+export default function MusicBackground() {
+    const backgroundMusicRef = useRef(null);
+    
+    useEffect(() => {
+        // Initialize audio in the useEffect to avoid re-creating on each render
+        if (!backgroundMusicRef.current) {
+            backgroundMusicRef.current = new Audio('/assets/sounds/music.mp3');
+        }
+        
+        return () => {
+            // Cleanup when component unmounts
+            if (backgroundMusicRef.current) {
+                backgroundMusicRef.current.pause();
+                backgroundMusicRef.current = null;
+            }
+        };
+    }, []);
+    
+    return { backgroundMusicRef };
+}
