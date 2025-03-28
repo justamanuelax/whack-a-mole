@@ -4,7 +4,7 @@
   align-items: center;
   padding: 20px;
   font-family: 'Arial', sans-serif;
-  background-color: rgb(16, 117, 67);
+  background-color: rgba(26, 209, 96, 0.788);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -18,7 +18,7 @@
 }
 
 h1 {
-  color: #4e6c50;
+  color: #000000;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   margin-bottom: 20px;
   transition: transform 0.3s ease;

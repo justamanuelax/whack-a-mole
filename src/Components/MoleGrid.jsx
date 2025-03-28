@@ -19,17 +19,17 @@ const MoleGrid = () => {
   // Game configuration based on difficulty
   const difficultySettings = useMemo(() => ({
     easy: { 
-      moleShowTime: 1500, // ms
+      moleShowTime: 1200, // ms
       moleAppearanceRate: 2000, // ms
       maxActiveMoles: 2
     },
     medium: { 
-      moleShowTime: 1000,
+      moleShowTime: 800,
       moleAppearanceRate: 1500,
       maxActiveMoles: 3
     },
     hard: { 
-      moleShowTime: 350,
+      moleShowTime: 400,
       moleAppearanceRate: 1000,
       maxActiveMoles: 4
     }
