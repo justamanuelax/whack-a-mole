@@ -78,10 +78,8 @@ const MoleGrid = () => {
       backgroundMusicRef.current.play().catch(error => {
         console.error("Error playing background music:", error);
       });
-      console.log("Music playing because game started");
     } else if ((status === 'paused' || status === 'ended') && backgroundMusicRef.current) {
       backgroundMusicRef.current.pause();
-      console.log("Music paused because game ended or paused");
     }
   }, [status, backgroundMusicRef]);
 
@@ -162,7 +160,6 @@ const MoleGrid = () => {
       gameEndSoundRef.current.play().catch(error => {
         console.error("Error playing game-over sound:", error);
       });
-      console.log("Game over sound played");
     }
   }, [timer, status, dispatch]);
   
