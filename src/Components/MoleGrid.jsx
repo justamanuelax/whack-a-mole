@@ -100,8 +100,10 @@ const MoleGrid = () => {
         highScores = JSON.parse(storedHighScores);
       }
       
-      // All scores are considered as high scores now
-      setIsNewHighScore(true);
+      // Only set as new high score if it's the highest score (first position)
+      // Check if there are no existing scores or if the new score is higher than the current highest
+      const isTopScore = highScores.length === 0 || score > (highScores[0]?.score || 0);
+      setIsNewHighScore(isTopScore);
       
       // Create a timestamp for the score for sorting ties
       const newScore = { 
