@@ -24,12 +24,12 @@ const MoleGrid = () => {
       maxActiveMoles: 2
     },
     medium: { 
-      moleShowTime: 1200,
+      moleShowTime: 1000,
       moleAppearanceRate: 1500,
       maxActiveMoles: 3
     },
     hard: { 
-      moleShowTime: 800,
+      moleShowTime: 350,
       moleAppearanceRate: 1000,
       maxActiveMoles: 4
     }
