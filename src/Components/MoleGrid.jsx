@@ -100,32 +100,27 @@ const MoleGrid = () => {
         highScores = JSON.parse(storedHighScores);
       }
       
-      // Check if current score is a new high score
-      const isHighScore = highScores.length < 5 || score > Math.min(...highScores.map(s => s.score));
+      // All scores are considered as high scores now
+      setIsNewHighScore(true);
       
-      if (isHighScore) {
-        setIsNewHighScore(true);
-        // Create a timestamp for the score for sorting ties
-        const newScore = { 
-          score: score,
-          timestamp: Date.now()
-        };
-        
-        highScores.push(newScore);
-        // Sort by score (descending) and then by timestamp (ascending) for ties
-        highScores.sort((a, b) => b.score === a.score ? 
-                                  (a.timestamp || 0) - (b.timestamp || 0) : 
-                                  b.score - a.score);
-                                  
-        // Keep only the top 5 scores
-        const topFiveScores = highScores.slice(0, 5);
-        
-        // Update state and localStorage
-        dispatch({ type: 'SET_HIGH_SCORES', payload: topFiveScores });
-        localStorage.setItem('highScores', JSON.stringify(topFiveScores));
-      } else {
-        setIsNewHighScore(false);
-      }
+      // Create a timestamp for the score for sorting ties
+      const newScore = { 
+        score: score,
+        timestamp: Date.now()
+      };
+      
+      highScores.push(newScore);
+      // Sort by score (descending) and then by timestamp (ascending) for ties
+      highScores.sort((a, b) => b.score === a.score ? 
+                                (a.timestamp || 0) - (b.timestamp || 0) : 
+                                b.score - a.score);
+                                
+      // Store all high scores in descending order
+      // No slicing to limit the number of scores
+      
+      // Update state and localStorage
+      dispatch({ type: 'SET_HIGH_SCORES', payload: highScores });
+      localStorage.setItem('highScores', JSON.stringify(highScores));
       
       // Mark score as processed to prevent duplicate processing
       setScoreProcessed(true);
