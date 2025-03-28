@@ -71,6 +71,9 @@ const MoleGrid = () => {
 
   // Handle music playback based on game status
   useEffect(() => {
+    if( status === 'ended'){
+      backgroundMusicRef.current.currentTime = 0;
+    }
     if (status === 'playing' && backgroundMusicRef.current) {
       backgroundMusicRef.current.play().catch(error => {
         console.error("Error playing background music:", error);
